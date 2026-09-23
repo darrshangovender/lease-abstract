@@ -1,0 +1,30 @@
+{
+  "source": "01_compliant.txt",
+  "landlord": {
+    "name": "Thandi Mokoena",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": "5 Beach Road, Umhlanga Rocks, 4320"
+  },
+  "tenant": {
+    "name": "Sipho Dlamini",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": null
+  },
+  "premises": {
+    "address": "Unit 12, Umhlanga Sands, 14 Lagoon Drive, Umhlanga Rocks, 4320",
+    "unit": "12",
+    "erf": null,
+    "furnished": false
+  },
+  "term": { "start": "2026-03-01", "end": "2027-02-28", "months": 12, "kind": "fixed" },
+  "rent": { "amount_zar": 8500.0, "due_day": 1, "method": "debit order" },
+  "escalation": { "pct": 6.0, "amount_zar": null, "anniversary": true },
+  "deposit": { "amount_zar": 17000.0, "months_equivalent": 2.0, "interest_bearing": true, "refund_days": 7 },
+  "notice": { "tenant_days": 20, "tenant_unit": "business", "landlord_days": 20, "landlord_unit": "business" },
+  "maintenance": { "landlord_items": 3, "tenant_items": 3 },
+  "penalties_count": 1
+}
