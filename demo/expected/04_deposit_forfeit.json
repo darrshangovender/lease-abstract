@@ -1,0 +1,30 @@
+{
+  "source": "04_deposit_forfeit.txt",
+  "landlord": {
+    "name": "Nomvula Zulu",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": "18 Musgrave Road, Berea, Durban, 4001"
+  },
+  "tenant": {
+    "name": "Johan Botha",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": null
+  },
+  "premises": {
+    "address": "Apartment 7, Berea Heights, 45 Musgrave Road, Berea, Durban, 4001",
+    "unit": "7",
+    "erf": null,
+    "furnished": null
+  },
+  "term": { "start": "2026-07-15", "end": "2027-01-14", "months": 6, "kind": "fixed" },
+  "rent": { "amount_zar": 7250.0, "due_day": 1, "method": "stop order" },
+  "escalation": { "pct": null, "amount_zar": 500.0, "anniversary": true },
+  "deposit": { "amount_zar": 14500.0, "months_equivalent": 2.0, "interest_bearing": true, "refund_days": 14 },
+  "notice": { "tenant_days": 20, "tenant_unit": "business", "landlord_days": null, "landlord_unit": "calendar" },
+  "maintenance": { "landlord_items": 1, "tenant_items": 1 },
+  "penalties_count": 2
+}
