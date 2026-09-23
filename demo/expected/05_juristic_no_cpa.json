@@ -1,0 +1,30 @@
+{
+  "source": "05_juristic_no_cpa.txt",
+  "landlord": {
+    "name": "Sandton Property Holdings (Pty) Ltd",
+    "kind": "juristic",
+    "has_id_number": false,
+    "registration_number": "2012/034567/07",
+    "address": "4th Floor, 100 Grayston Drive, Sandton, 2196"
+  },
+  "tenant": {
+    "name": "Mbali Ndlovu",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": "12 Eighth Avenue, Melville, Johannesburg, 2092"
+  },
+  "premises": {
+    "address": "Unit 804, The Grayston, 120 Grayston Drive, Sandton, 2196",
+    "unit": "804",
+    "erf": null,
+    "furnished": null
+  },
+  "term": { "start": "2026-09-01", "end": "2028-08-31", "months": 24, "kind": "fixed" },
+  "rent": { "amount_zar": 15500.0, "due_day": 1, "method": "debit order" },
+  "escalation": { "pct": 7.0, "amount_zar": null, "anniversary": true },
+  "deposit": { "amount_zar": 31000.0, "months_equivalent": 2.0, "interest_bearing": true, "refund_days": 7 },
+  "notice": null,
+  "maintenance": { "landlord_items": 3, "tenant_items": 3 },
+  "penalties_count": 1
+}
