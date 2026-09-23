@@ -1,0 +1,55 @@
+[project]
+name = "lease-abstract"
+version = "0.1.0"
+description = "Residential lease abstraction and compliance checking for South African rentals."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Darrshan Govender", email = "darrshangovender@gmail.com" }]
+keywords = ["lease", "rental-housing-act", "south-africa", "compliance", "llm", "extraction", "popia"]
+dependencies = [
+    "pydantic>=2.7",
+]
+
+[project.optional-dependencies]
+# PDF input is opt-in: pdfplumber pulls in pdfminer and is not needed for the
+# text pipeline, the tests or the eval.
+pdf = ["pdfplumber>=0.10"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+    "ruff>=0.6",
+    # eval/run.py reads demo/expected_findings.yml
+    "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/darrshangovender/lease-abstract"
+Issues = "https://github.com/darrshangovender/lease-abstract/issues"
+
+[project.scripts]
+lease-abstract = "lease_abstract.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["lease_abstract"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# Pin the rule set so `ruff check .` means the same thing on every ruff version.
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+ignore = ["E731"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lease_abstract"]
