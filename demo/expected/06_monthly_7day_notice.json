@@ -1,0 +1,30 @@
+{
+  "source": "06_monthly_7day_notice.txt",
+  "landlord": {
+    "name": "Rajesh Naidoo",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": "9 Windermere Road, Morningside, Durban, 4001"
+  },
+  "tenant": {
+    "name": "Lerato Mahlangu",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": null
+  },
+  "premises": {
+    "address": "41 Cowey Road, Morningside, Durban, 4001",
+    "unit": null,
+    "erf": null,
+    "furnished": false
+  },
+  "term": { "start": "2026-10-01", "end": null, "months": null, "kind": "month_to_month" },
+  "rent": { "amount_zar": 6500.0, "due_day": 1, "method": "EFT" },
+  "escalation": { "pct": 6.0, "amount_zar": null, "anniversary": true },
+  "deposit": { "amount_zar": 6500.0, "months_equivalent": 1.0, "interest_bearing": true, "refund_days": 7 },
+  "notice": { "tenant_days": 7, "tenant_unit": "calendar", "landlord_days": 7, "landlord_unit": "calendar" },
+  "maintenance": { "landlord_items": 1, "tenant_items": 1 },
+  "penalties_count": 1
+}
