@@ -1,0 +1,44 @@
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+.uv/
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- Data / logs ---
+# Real leases never belong in git. The synthetic demo corpus under demo/ does.
+*.pdf
+!demo/**/*.pdf
+logs/
+*.log
+eval/results.json
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- Misc ---
+tmp/
+.scratch/
