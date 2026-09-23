@@ -1,0 +1,47 @@
+# Expected compliance findings for the synthetic demo corpus.
+#
+# violations : rule ids that must be reported as in-force violations or
+#              unfair practices (ComplianceReport.violations()).
+# pending    : rule ids that must be reported under pending_proclamation
+#              (Rental Housing Amendment Act 35 of 2014) and must NEVER
+#              appear in violations().
+# applicability : expected CPA applicability on the CPA findings, where any.
+#
+# The POPIA-PII advisory fires on every lease that contains personal
+# information and is scored separately (it is an advisory, not a violation).
+
+01_compliant.txt:
+  violations: []
+  pending: []
+
+02_non_interest_deposit.txt:
+  violations:
+    - RHA-5-3-D-INTEREST      # deposit "will not earn interest"
+    - RHA-5-3-E-REFUND        # refund within 30 days
+    - RHA-5-3-INSPECTION      # no joint inspection clause at all
+  pending: []
+
+03_entry_any_time.txt:
+  violations:
+    - UNFAIR-ENTRY-NO-NOTICE  # "enter the premises at any time without notice"
+  pending:
+    - RHAA-2014-INSPECTION-NOTICE   # 24 hours' notice - Amendment Act, not yet proclaimed
+
+04_deposit_forfeit.txt:
+  violations:
+    - UNFAIR-DEPOSIT-FORFEIT  # "forfeited in full" on any breach
+    - RHA-5-3-E-REFUND        # 14 days even where no deductions are made (low severity)
+  pending: []
+
+05_juristic_no_cpa.txt:
+  violations:
+    - CPA-14-CANCELLATION     # fixed term, tenant "has no right to cancel"
+    - CPA-14-EXPIRY-NOTICE    # no 40-80 business day expiry notice
+    - CPA-14-AUTO-RENEWAL     # "shall not be renewed or extended on a month-to-month basis"
+  pending: []
+  applicability: likely       # (Pty) Ltd landlord -> supplier in the ordinary course of business
+
+06_monthly_7day_notice.txt:
+  violations:
+    - COMMON-LAW-MONTHLY-NOTICE   # 7 days' notice on a monthly tenancy
+  pending: []
