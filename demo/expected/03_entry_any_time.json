@@ -1,0 +1,30 @@
+{
+  "source": "03_entry_any_time.txt",
+  "landlord": {
+    "name": "Pieter van der Merwe",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": "7 Kloof Street, Pinetown, 3610"
+  },
+  "tenant": {
+    "name": "Ayesha Patel",
+    "kind": "individual",
+    "has_id_number": true,
+    "registration_number": null,
+    "address": null
+  },
+  "premises": {
+    "address": "22 Jacaranda Avenue, Pinetown, 3610",
+    "unit": null,
+    "erf": "1043",
+    "furnished": null
+  },
+  "term": { "start": "2026-06-01", "end": "2027-05-31", "months": 12, "kind": "fixed" },
+  "rent": { "amount_zar": 12000.0, "due_day": 1, "method": "EFT" },
+  "escalation": { "pct": 8.0, "amount_zar": null, "anniversary": true },
+  "deposit": { "amount_zar": 24000.0, "months_equivalent": 2.0, "interest_bearing": true, "refund_days": 7 },
+  "notice": { "tenant_days": 20, "tenant_unit": "business", "landlord_days": null, "landlord_unit": "calendar" },
+  "maintenance": { "landlord_items": 1, "tenant_items": 1 },
+  "penalties_count": 1
+}
