@@ -30,7 +30,8 @@ python eval/run.py                            # offline benchmark against the go
 ```python
 from lease_abstract import Pipeline, ComplianceEngine, Summariser
 
-abstract = Pipeline().run(open("lease.txt").read())         # add model=<ModelClient> to gap-fill with an LLM
+text = open("demo/leases/01_compliant.txt", encoding="utf-8").read()
+abstract = Pipeline().run(text)              # add model=<ModelClient> to gap-fill with an LLM
 report = ComplianceEngine().run(abstract)
 print(abstract.rent.value.amount_zar, abstract.rent.source_clause_id)   # 8500.0 c4.1
 print(Summariser(abstract, report).for_tenant())
@@ -61,8 +62,8 @@ flowchart LR
 | Rule id | What it looks for | Statute and section | Status |
 |---|---|---|---|
 | `RHA-5-3-D-INTEREST` | Deposit in an interest-bearing account at ≥ savings rate, interest to tenant, proof on request | Rental Housing Act 50/1999 s5(3)(d) | in force |
-| `RHA-5-3-E-REFUND` | Refund within 7 days (no damage) / 14 (deductions) / 21 (tenant absent from outgoing inspection) | RHA s5(3)(e)–(g) | in force |
-| `RHA-5-3-INSPECTION` | Joint incoming and outgoing inspection | RHA s5(3) | in force |
+| `RHA-5-3-REFUND` | Refund within 7 days (nothing owing) / 14 (deductions) / 21 (tenant did not respond to the outgoing-inspection request) | RHA s5(3)(i), (g), (k)–(m) | in force |
+| `RHA-5-3-INSPECTION` | Joint incoming and outgoing inspection | RHA s5(3)(e)–(f) | in force |
 | `RHAA-2014-INSPECTION-NOTICE` | 24 hours' written notice before entry/inspection | Rental Housing Amendment Act 35/2014 | **pending proclamation** |
 | `RHAA-2014-WRITTEN-LEASE` | Lease must be in writing; oral variations not binding | RHAA 35/2014 | **pending proclamation** |
 | `CPA-14-CANCELLATION` | Tenant may cancel a fixed term on 20 business days' notice + reasonable penalty | Consumer Protection Act 68/2008 s14(2)(b)(ii), s14(3) | in force (applicability heuristic) |
@@ -70,15 +71,17 @@ flowchart LR
 | `CPA-14-AUTO-RENEWAL` | Fixed term continues month-to-month unless tenant elects otherwise | CPA s14(2)(d) | in force (applicability heuristic) |
 | `COMMON-LAW-MONTHLY-NOTICE` | Month-to-month tenancy needs one calendar month's notice | Common law, RHA s13 / s15(1)(f) | in force (unfair practice) |
 | `UNFAIR-DEPOSIT-FORFEIT` | Deposit forfeited on any breach | RHA s13(4)–(5), s15(1)(f), Unfair Practice Regulations | in force (unfair practice) |
-| `UNFAIR-ENTRY-NO-NOTICE` | Landlord may enter at any time / without notice | RHA s15(1)(f), Unfair Practice Regulations | in force (unfair practice) |
+| `UNFAIR-ENTRY-NO-NOTICE` | Landlord may enter at any time / without notice | RHA s4(2) (inspection only after reasonable notice), s15(1)(f), Unfair Practice Regulations | in force (unfair practice) |
 | `UNFAIR-REPAIR-WAIVER` | Tenant waives landlord's duty to maintain a habitable dwelling | RHA s15(1)(f), Unfair Practice Regulations | in force (unfair practice) |
 | `UNFAIR-TRIBUNAL-WAIVER` | Tenant waives access to the Rental Housing Tribunal | RHA s13, s15(1)(f) | in force (unfair practice) |
-| `UNFAIR-LOCKOUT` | Lock-out, utility disconnection or removal of goods without a court order | RHA s15(1)(f); PIE Act 19/1998 s4, s8 | in force (unfair practice) |
+| `UNFAIR-LOCKOUT` | Lock-out, utility disconnection or removal of goods without a court order | RHA s4(3)(c), s4(5)(d)(ii), s15(1)(f); PIE Act 19/1998 s4, s8 | in force (unfair practice) |
 | `POPIA-PII` | Personal information present; lawful purpose documented; redacted before any model call or log | POPIA 4/2013 s9–s11 | in force (advisory) |
 
-## The result
+The Rental Housing Act paragraph references were checked against the Act as published in Government Gazette No. 20726 (15 December 1999). The Amendment Act, CPA, POPIA and PIE references were not re-checked against a gazette in this pass.
 
-`python eval/run.py` on the six synthetic demo leases (rules only, `MockModel` answering `{}`):
+## Results
+
+`python eval/run.py` (`make bench`) on the six synthetic demo leases, rules only, `MockModel` answering `{}`. Regenerated on 14 October 2026:
 
 ```
 lease                            |    fields | field P | field R |  findings |  find P |  find R | pending |   cited
@@ -93,7 +96,7 @@ lease                            |    fields | field P | field R |  findings |  
 TOTAL                            | 171/171   |  100.0% |  100.0% |  10/10    |  100.0% |  100.0% |      ok | 64/64
 ```
 
-Fields are scored per leaf (`rent.amount_zar`, `term.kind`, …) against hand-written gold in `demo/expected/`; findings are rule ids against `demo/expected_findings.yml`. A perfect score on a corpus the rules were tuned against says the pipeline is consistent, not that it generalises — see Limitations.
+Fields are scored per leaf (`rent.amount_zar`, `term.kind`, …) against hand-written gold in `demo/expected/`; findings are rule ids against `demo/expected_findings.yml`. A perfect score on a corpus the rules were tuned against says the pipeline is consistent, not that it generalises — see Limitations. On `01_compliant.txt` there are no expected or reported findings, so its 100% finding precision/recall is vacuous; the TOTAL row is pooled across leases. No LLM was used to produce any number here.
 
 ## Design decisions
 
@@ -110,7 +113,9 @@ Fields are scored per leaf (`rent.amount_zar`, `term.kind`, …) against hand-wr
 * PDF input relies on `pdfplumber` text extraction; multi-column layouts and scanned images lose structure or fail entirely.
 * This is not a Tribunal. Unfair-practice patterns are sentence-level regexes with a small negation list; a clause phrased unusually can be missed or over-flagged.
 * CPA applicability is a heuristic (juristic landlord or "ordinary course of business" wording → `likely`), not a legal determination.
-* Section references follow the project brief; verify against the gazetted text before relying on a citation in a dispute.
+* No LLM provider client is bundled. `ModelClient` is a one-method protocol (`complete(prompt) -> str`) you implement for your provider; the gap-fill path has only been exercised with the scripted `MockModel`.
+* Rental Housing Act citations were checked against the 1999 gazette; the Amendment Act, CPA, POPIA and PIE references were not. Verify against the gazetted text before relying on a citation in a dispute.
+* The demo leases are synthetic. Names are invented, e-mail addresses use reserved `example.*` domains, and ID numbers use citizenship digit 9 (never issued) so they pass the date and Luhn checks without being anyone's ID. Phone numbers are invented in South African format; South Africa has no reserved fictional range, so a coincidental match with a real number is possible.
 
 ## Project layout
 
@@ -127,7 +132,7 @@ lease_abstract/
   compliance/tribunal.py unfair-practice patterns
   summary.py            tenant/landlord summaries, number-preserving polish
   cli.py                extract | check | summarise
-demo/leases/            six synthetic SA leases (no real people)
+demo/leases/            six synthetic SA leases (no real people; see demo/README.md)
 demo/expected/          gold abstracts, one JSON per lease
 demo/expected_findings.yml
 eval/run.py             offline benchmark (the table above)
@@ -136,8 +141,8 @@ tests/                  offline test suite
 
 ## Tests
 
-156 tests, all offline: `pytest tests/ -q`. They cover the segmenter on each heading style, every amount and date format, SA-ID Luhn validation, each compliance rule as a true positive and a true negative, the guarantee that `pending_proclamation` findings never appear as violations, CPA applicability inference, number preservation in both summaries, PII never reaching model prompts, the citation contract on every extracted field, and CLI smoke tests. `ruff check .` passes clean.
+178 tests, all offline: `pytest tests/` (or `make test`). They cover the segmenter on each heading style, every amount and date format, SA-ID Luhn validation, each compliance rule as a true positive and a true negative, the guarantee that `pending_proclamation` findings never appear as violations, CPA applicability inference, number preservation in both summaries, PII never reaching model prompts, the citation contract on every extracted field, CLI smoke tests, and (`tests/test_regressions.py`) the statute paragraph citations and the non-issuable demo ID numbers. `ruff check .` is a CI gate.
 
-## Author
+---
 
-Darrshan Govender · [LeasEase](https://leasease.co.za) · [Agulhas Code](https://agulhascode.co.za) · Durban, South Africa
+Built by [Darrshan Govender](https://github.com/darrshangovender) · [Agulhas Code](https://agulhascode.co.za)

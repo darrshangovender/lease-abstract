@@ -21,7 +21,7 @@ def test_extract_text_output(capsys):
     out = capsys.readouterr().out
     assert "Lease abstract: 01_compliant.txt" in out
     assert "rent" in out and "R8 500" in out and "[c4.1, rules, 0.90]" in out
-    assert "8804125001088" in out or "has_id_number=True" in out
+    assert "8804125001989" in out or "has_id_number=True" in out
 
 
 def test_extract_json_output(capsys):

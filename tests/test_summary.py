@@ -81,7 +81,7 @@ def test_polish_raises_on_number_drift_and_summarise_falls_back(demo_abstracts, 
 
 def test_polish_prompt_is_redacted():
     model = MockModel(lambda p: p.split("Do not add facts.\n\n", 1)[1])
-    src = "Tenant ID 8804125001088, rent R8 500."
+    src = "Tenant ID 8804125001989, rent R8 500."
     out = polish(src, model)
-    assert "8804125001088" not in model.prompts[0] and "[ID_1]" in model.prompts[0]
-    assert "8804125001088" in out
+    assert "8804125001989" not in model.prompts[0] and "[ID_1]" in model.prompts[0]
+    assert "8804125001989" in out

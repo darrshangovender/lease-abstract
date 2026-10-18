@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "lease-abstract: residential lease abstraction and South African rental-law compliance checks"
+type: software
+version: 0.1.1
+date-released: 2026-10-14
+license: MIT
+repository-code: "https://github.com/darrshangovender/lease-abstract"
+url: "https://github.com/darrshangovender/lease-abstract"
+authors:
+  - family-names: Govender
+    given-names: Darrshan
+    email: darrshangovender@gmail.com
+keywords:
+  - lease
+  - rental-housing-act
+  - south-africa
+  - compliance
+  - extraction
+  - popia
+abstract: >-
+  Rules-first extraction of a cited lease abstract from South African residential leases,
+  compliance findings against the Rental Housing Act, CPA s14, POPIA and Rental Housing
+  Tribunal unfair-practice patterns, and number-consistent tenant and landlord summaries.
+  Not legal advice.

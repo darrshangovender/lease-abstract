@@ -13,7 +13,7 @@ from lease_abstract.privacy import (
     sa_id_date_ok,
 )
 
-VALID_IDS = ["8804125001088", "9109235112083", "7501015800089"]
+VALID_IDS = ["8804125001989", "9109235112984", "7501015800980"]
 
 
 @pytest.mark.parametrize("digits", VALID_IDS)
@@ -23,14 +23,14 @@ def test_luhn_accepts_valid_sa_ids(digits):
 
 
 def test_luhn_rejects_bad_checksum():
-    bad = "8804125001087"  # last digit off by one
+    bad = "8804125001988"  # last digit off by one
     assert not luhn_ok(bad)
     assert not is_valid_sa_id(bad)
 
 
 def test_sa_id_rejects_impossible_birth_date():
-    assert not sa_id_date_ok("8813325001088")  # month 13
-    assert not is_valid_sa_id("8813325001088")
+    assert not sa_id_date_ok("8813325001988")  # month 13
+    assert not is_valid_sa_id("8813325001988")
 
 
 def test_sa_id_rejects_wrong_length_and_non_digits():
@@ -40,11 +40,11 @@ def test_sa_id_rejects_wrong_length_and_non_digits():
 
 def test_redactor_replaces_each_kind_with_stable_placeholder():
     text = (
-        "Sipho Dlamini, Identity Number 9109235112083, cell 082 555 0147, "
+        "Sipho Dlamini, Identity Number 9109235112984, cell 082 555 0147, "
         "email sipho.dlamini@example.co.za, Account Number 62012345678, Branch Code 250655."
     )
     safe, rmap = Redactor().redact(text)
-    assert "9109235112083" not in safe and "082 555 0147" not in safe
+    assert "9109235112984" not in safe and "082 555 0147" not in safe
     assert "sipho.dlamini@example.co.za" not in safe and "62012345678" not in safe
     assert "250655" not in safe
     assert {rmap.kinds[k] for k in rmap.entries} == {"ID", "PHONE", "EMAIL", "BANK", "BRANCH"}
@@ -58,8 +58,8 @@ def test_redactor_does_not_redact_13_digit_numbers_that_fail_luhn():
 
 def test_same_value_gets_same_placeholder():
     rmap = RedactionMap()
-    assert rmap.add("ID", "9109235112083") == rmap.add("ID", "9109235112083") == "[ID_1]"
-    assert rmap.add("ID", "8804125001088") == "[ID_2]"
+    assert rmap.add("ID", "9109235112984") == rmap.add("ID", "9109235112984") == "[ID_1]"
+    assert rmap.add("ID", "8804125001989") == "[ID_2]"
     assert rmap.count("ID") == 2
 
 
@@ -71,8 +71,8 @@ def test_redacting_log_filter_strips_pii():
     handler.emit = records.append  # type: ignore[method-assign]
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
-    logger.info("tenant id %s phone %s", "9109235112083", "082 555 0147")
-    assert records and "9109235112083" not in records[0].getMessage()
+    logger.info("tenant id %s phone %s", "9109235112984", "082 555 0147")
+    assert records and "9109235112984" not in records[0].getMessage()
     assert "[ID_1]" in records[0].getMessage()
 
 

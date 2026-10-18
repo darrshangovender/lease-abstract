@@ -1,8 +1,8 @@
 LEASE AGREEMENT - MONTHLY TENANCY
 
 1) Parties
-1.1) Landlord: Rajesh Naidoo (ID No 7501015800089), of 9 Windermere Road, Morningside, Durban, 4001.
-1.2) Tenant: Lerato Mahlangu (ID No 9104225301085), cell 076 200 4411, email lerato.m@example.org.
+1.1) Landlord: Rajesh Naidoo (ID No 7501015800980), of 9 Windermere Road, Morningside, Durban, 4001.
+1.2) Tenant: Lerato Mahlangu (ID No 9104225301986), cell 076 200 4411, email lerato.m@example.org.
 
 2) Premises
 2.1) The Landlord lets to the Tenant the garden cottage situated at 41 Cowey Road, Morningside, Durban, 4001 ("the Premises"), which is let unfurnished.

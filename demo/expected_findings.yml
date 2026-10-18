@@ -17,7 +17,7 @@
 02_non_interest_deposit.txt:
   violations:
     - RHA-5-3-D-INTEREST      # deposit "will not earn interest"
-    - RHA-5-3-E-REFUND        # refund within 30 days
+    - RHA-5-3-REFUND        # refund within 30 days
     - RHA-5-3-INSPECTION      # no joint inspection clause at all
   pending: []
 
@@ -30,7 +30,7 @@
 04_deposit_forfeit.txt:
   violations:
     - UNFAIR-DEPOSIT-FORFEIT  # "forfeited in full" on any breach
-    - RHA-5-3-E-REFUND        # 14 days even where no deductions are made (low severity)
+    - RHA-5-3-REFUND        # 14 days even where no deductions are made (low severity)
   pending: []
 
 05_juristic_no_cpa.txt:

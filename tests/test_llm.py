@@ -11,12 +11,12 @@ from lease_abstract.segment import segment
 from .conftest import LEASE_FILES, make_lease
 
 PII_SAMPLES = {
-    "01_compliant.txt": ["8804125001088", "9109235112083", "082 555 0147", "sipho.dlamini@example.co.za", "62012345678"],
-    "02_non_interest_deposit.txt": ["7603055017085", "031 303 2211", "10098765432"],
-    "03_entry_any_time.txt": ["7908115023084", "8501175209088", "ayesha.p@example.com", "+27 83 444 9012"],
-    "04_deposit_forfeit.txt": ["9306285115087", "8802145126083", "072 118 3390", "1234567890"],
-    "05_juristic_no_cpa.txt": ["9504305081087", "62987654321"],
-    "06_monthly_7day_notice.txt": ["7501015800089", "9104225301085", "076 200 4411", "lerato.m@example.org"],
+    "01_compliant.txt": ["8804125001989", "9109235112984", "082 555 0147", "sipho.dlamini@example.co.za", "62012345678"],
+    "02_non_interest_deposit.txt": ["7603055017986", "031 303 2211", "10098765432"],
+    "03_entry_any_time.txt": ["7908115023985", "8501175209989", "ayesha.p@example.com", "+27 83 444 9012"],
+    "04_deposit_forfeit.txt": ["9306285115988", "8802145126984", "072 118 3390", "1234567890"],
+    "05_juristic_no_cpa.txt": ["9504305081988", "62987654321"],
+    "06_monthly_7day_notice.txt": ["7501015800980", "9104225301986", "076 200 4411", "lerato.m@example.org"],
 }
 
 
@@ -69,15 +69,15 @@ def test_llm_answer_accepted_only_when_quote_is_verbatim():
 
 
 def test_placeholders_in_model_output_are_restored_locally():
-    text = make_lease(landlord="Thabo Nkosi, Identity Number 8804125001088, of 1 Hill Street, Durban, 4001.")
+    text = make_lease(landlord="Thabo Nkosi, Identity Number 8804125001989, of 1 Hill Street, Durban, 4001.")
     model = MockModel(
         lambda prompt: json.dumps(
             {"special_clauses": {"value": ["ID on file: [ID_1]"], "extracted_text": "This lease is governed by South African law."}}
         )
     )
     a = Pipeline(model=model).run(text)
-    assert a.special_clauses.value == ["ID on file: 8804125001088"]
-    assert all("8804125001088" not in p for p in model.prompts)
+    assert a.special_clauses.value == ["ID on file: 8804125001989"]
+    assert all("8804125001989" not in p for p in model.prompts)
 
 
 def test_build_prompt_lists_only_requested_fields():

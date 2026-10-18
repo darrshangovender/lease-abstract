@@ -11,8 +11,9 @@ Statutes encoded here:
 * Common-law notice for periodic leases, as applied by the Rental Housing
   Tribunals (advisory position, not a numbered statutory duty)
 
-Section references follow the project brief. Verify against the gazetted
-text before relying on a citation in a dispute.
+Rental Housing Act section references were checked against the Act as published in
+Government Gazette No. 20726 (15 December 1999). The Amendment Act and CPA references
+were not re-checked against a gazette. Verify before relying on a citation in a dispute.
 """
 
 from __future__ import annotations
@@ -78,10 +79,11 @@ def check_deposit_refund(ctx: Context, rule: ComplianceRule) -> list[Finding]:
         return [
             rule.finding(
                 dep.source_clause_id,
-                f"The lease allows {days} days to refund the deposit. Section 5(3)(e)-(g) requires "
-                "refund of the deposit plus interest within 7 days where there is no damage, 14 days "
-                "where deductions are made, and 21 days where the tenant did not attend the outgoing "
-                "inspection.",
+                f"The lease allows {days} days to refund the deposit. Section 5(3) requires refund of "
+                "the deposit plus interest within 7 days of expiry where nothing is owing (s5(3)(i)), "
+                "within 14 days of restoration of the dwelling where deductions are made (s5(3)(g)), "
+                "and within 21 days of expiry where the tenant did not respond to the request for "
+                "an outgoing inspection (s5(3)(k)-(m)).",
                 "Change the refund period to 7 days (no deductions) / 14 days (with an itemised "
                 "statement of deductions), and 21 days only where the tenant fails to attend the "
                 "outgoing inspection.",
@@ -92,8 +94,9 @@ def check_deposit_refund(ctx: Context, rule: ComplianceRule) -> list[Finding]:
             rule.finding(
                 dep.source_clause_id,
                 f"The lease allows {days} days to refund the deposit. That period is only permitted "
-                "where the tenant failed to attend the outgoing inspection (s5(3)(g)); otherwise the "
-                "limit is 7 days (no damage) or 14 days (with deductions).",
+                "where the tenant failed to respond to the request for an outgoing inspection "
+                "(s5(3)(k)-(m)); otherwise the limit is 7 days with nothing owing (s5(3)(i)) or "
+                "14 days with deductions (s5(3)(g)).",
                 "Tie the 21-day period expressly to the tenant's non-attendance at the outgoing "
                 "inspection and state the 7/14-day periods for the ordinary cases.",
                 severity="medium",
@@ -105,7 +108,7 @@ def check_deposit_refund(ctx: Context, rule: ComplianceRule) -> list[Finding]:
                 dep.source_clause_id,
                 f"The lease allows {days} days to refund the deposit. That is within the 14-day limit "
                 "for refunds with deductions, but where there is no damage the deposit and interest "
-                "must be refunded within 7 days (s5(3)(e)).",
+                "must be refunded within 7 days of expiry (s5(3)(i)).",
                 "State the 7-day period for the no-deduction case explicitly.",
                 severity="low",
             )
@@ -130,7 +133,7 @@ def check_joint_inspection(ctx: Context, rule: ComplianceRule) -> list[Finding]:
             rule.finding(
                 clause.id,
                 "The lease mentions an inspection but not a joint incoming and outgoing inspection "
-                "by landlord and tenant together, which section 5(3) requires.",
+                "by landlord and tenant together, which section 5(3)(e)-(f) requires.",
                 "Add: 'The Landlord and Tenant shall jointly inspect the premises before the Tenant "
                 "moves in and again at the end of the lease, and record any defects in writing.'",
                 severity="low",
@@ -140,7 +143,7 @@ def check_joint_inspection(ctx: Context, rule: ComplianceRule) -> list[Finding]:
         rule.finding(
             None,
             "The lease makes no provision for the joint incoming and outgoing inspection required "
-            "by section 5(3). Without a recorded incoming inspection the landlord cannot later prove "
+            "by section 5(3)(e)-(f). Without a recorded incoming inspection the landlord cannot later prove "
             "damage against the deposit.",
             "Add a clause providing for a joint inspection at the start and end of the lease with "
             "a written, signed defects list.",
@@ -412,9 +415,9 @@ SA_RULES: list[ComplianceRule] = [
         check=check_deposit_interest,
     ),
     ComplianceRule(
-        id="RHA-5-3-E-REFUND",
+        id="RHA-5-3-REFUND",
         statute=RHA,
-        section="s5(3)(e)-(g)",
+        section="s5(3)(g), (i) and (k)-(m)",
         description="Deposit plus interest refunded within 7 / 14 / 21 days.",
         severity="high",
         status="in_force",
@@ -423,7 +426,7 @@ SA_RULES: list[ComplianceRule] = [
     ComplianceRule(
         id="RHA-5-3-INSPECTION",
         statute=RHA,
-        section="s5(3)",
+        section="s5(3)(e)-(f)",
         description="Joint incoming and outgoing inspection.",
         severity="medium",
         status="in_force",

@@ -55,6 +55,10 @@ UNFAIR_PATTERNS: tuple[UnfairPattern, ...] = (
             "Require reasonable written notice (the Amendment Act contemplates 24 hours) and "
             "entry at reasonable times, with an emergency exception."
         ),
+        # s4(2) (in force since 1999): inspection only "in a reasonable manner after
+        # reasonable notice to the tenant".
+        section="s4(2); s13(4)-(5) and s15(1)(f) read with the provincial Unfair Practice "
+        "Regulations",
     ),
     UnfairPattern(
         id="UNFAIR-REPAIR-WAIVER",
@@ -88,7 +92,7 @@ UNFAIR_PATTERNS: tuple[UnfairPattern, ...] = (
             "from and Unlawful Occupation of Land Act 19 of 1998; self-help remedies are unlawful."
         ),
         statute="Rental Housing Act 50 of 1999; PIE Act 19 of 1998",
-        section="RHA s15(1)(f) read with the Unfair Practice Regulations; PIE s4 and s8",
+        section="RHA s4(3)(c), s4(5)(d)(ii) and s15(1)(f) with the Unfair Practice Regulations; PIE s4 and s8",
     ),
 )
 

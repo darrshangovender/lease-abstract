@@ -60,12 +60,12 @@ def test_deposit_interest_silent_is_low_severity_and_interest_bearing_is_clean()
 def test_deposit_refund_period_graded(days, severity):
     dep = DEPOSIT_OK.replace("within 7 (seven) days", f"within {days} days")
     r = report_for(make_lease(deposit=dep))
-    f = next(x for x in r.violations() if x.rule_id == "RHA-5-3-E-REFUND")
+    f = next(x for x in r.violations() if x.rule_id == "RHA-5-3-REFUND")
     assert f.severity == severity
 
 
 def test_deposit_refund_within_7_days_is_clean():
-    assert "RHA-5-3-E-REFUND" not in violation_ids(make_lease())
+    assert "RHA-5-3-REFUND" not in violation_ids(make_lease())
 
 
 # ---------------------------------------------------------------- RHA s5(3) inspection
@@ -212,7 +212,7 @@ def test_monthly_notice_short_is_unfair_and_one_month_is_clean():
 
 # ---------------------------------------------------------------- POPIA
 def test_popia_advisory_only_when_pii_present():
-    r = report_for(make_lease(landlord="Thabo Nkosi, Identity Number 8804125001088, of 1 Hill Street, Durban, 4001."))
+    r = report_for(make_lease(landlord="Thabo Nkosi, Identity Number 8804125001989, of 1 Hill Street, Durban, 4001."))
     assert {f.rule_id for f in r.advisories()} == {"POPIA-PII"}
     assert "POPIA-PII" not in {f.rule_id for f in r.violations()}
     assert report_for(make_lease()).advisories() == []
@@ -257,7 +257,7 @@ def test_report_ordering_and_helpers():
     statuses = [f.status for f in r.findings]
     assert statuses == sorted(statuses, key=lambda s: s != "in_force")  # in-force first
     assert r.worst_severity == "high"
-    assert r.by_severity("high") and r.rule_ids() >= {"RHA-5-3-E-REFUND", "RHAA-2014-INSPECTION-NOTICE"}
+    assert r.by_severity("high") and r.rule_ids() >= {"RHA-5-3-REFUND", "RHAA-2014-INSPECTION-NOTICE"}
 
 
 def test_context_find_clause_prefers_requested_categories():
