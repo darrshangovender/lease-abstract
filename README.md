@@ -9,7 +9,7 @@
 
 ## Why this exists
 
-LeasEase deals with leases that were copied from a template five landlords ago. They say the deposit "will not earn interest", that the landlord "may enter at any time", that the deposit is "forfeited in full on any breach". Each of those is either a breach of the Rental Housing Act or an unfair practice a Rental Housing Tribunal will strike out, and neither party usually knows. This library reads the lease, finds the facts, checks them against the statutes, and explains the result in language a tenant or a landlord can act on — offline, with personal information never leaving the machine.
+Residential leases in South Africa are often copied from a template five landlords ago. They say the deposit "will not earn interest", that the landlord "may enter at any time", that the deposit is "forfeited in full on any breach". Each of those is either a breach of the Rental Housing Act or an unfair practice a Rental Housing Tribunal will strike out, and neither party usually knows. This library reads the lease, finds the facts, checks them against the statutes, and explains the result in language a tenant or a landlord can act on — offline, with personal information never leaving the machine.
 
 ## Legal disclaimer
 
