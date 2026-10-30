@@ -1,7 +1,7 @@
 # Demo data (synthetic)
 
 Everything in this folder is invented for testing and demonstration. No lease, person,
-address or account here is real, and none comes from LeasEase users or any client.
+address or account here is real, and none comes from real users or any client.
 
 - `leases/`: six synthetic South African residential leases, each written to exercise a
   specific compliance rule (the file name says which).
